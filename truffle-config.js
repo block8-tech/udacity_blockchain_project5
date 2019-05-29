@@ -21,13 +21,13 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-
+require('dotenv').config();
 // const HDWallet = require('truffle-hdwallet-provider');
 const HDWalletProvider = require('truffle-hdwallet-provider');
-const infuraKey = "61f1c23896ac4a3e8e80667606cf7157";
+// const infuraKey = "6dfw....";
 
-const fs = require('fs');
-const mnemonic = fs.readFileSync(".secret").toString().trim();
+// const fs = require('fs');
+// const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
   /**
@@ -53,10 +53,15 @@ module.exports = {
       network_id: "*",       // Any network (default: none)
     },
     rinkeby: {
-      provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY),
       network_id: 4,       // rinkeby's id
       gas: 4500000,        // rinkeby has a lower block limit than mainnet
-      gasPrice: 10000000000
+      gasPrice: 10000000000,
+      confirmations: 2,
+      skipDryRun: true,
+      // advanced: {
+      //   from: "0xf1184C3A07Cc4C5E1E200a17DAA66E408CE5b2fA"
+      // }
     },
     // Another network with more advanced options...
     // advanced: {

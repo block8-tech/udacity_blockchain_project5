@@ -1,2 +1,4 @@
 /node_modules
-.secret
+.env
+playground.js
+rinkeby_migration.txt

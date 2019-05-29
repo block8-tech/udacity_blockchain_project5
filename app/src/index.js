@@ -41,7 +41,19 @@ const App = {
 
   // Implement Task 4 Modify the front end of the DAPP
   lookUp: async function (){
-    
+    const id = document.getElementById("lookid").value; // Get the id value
+    const {lookUptokenIdToStarInfo} = this.meta.methods; // Get the lookUptokenIdToStarInfo function (declared in the contracts/StarNotary.sol)
+    const name = await lookUptokenIdToStarInfo(id).call(); // Use the function passing it the id then calling it. Await for the response.
+
+    let message = ''; // Declare the message.
+
+    if(name){
+      message = `The Stars Name is: ${name}.`; // Reassign the message value.
+    } else {
+      message = `Unable to find that Star.`; // Reassign the message value.
+    }
+
+    App.setStatus(message); // Send the message back.
   }
 
 };
